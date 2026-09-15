@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    OBSIDIAN COMPONENTS
    Product Cards, Modals, Drawers, Calculator Wizard, Checkout,
    Tracking, Admin Panel, Chatbot, Toasts
@@ -1237,4 +1237,75 @@
 @keyframes slideInRight {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============================================================
+   PROFESSIONAL ICON COMPONENT STYLES (Added in polish pass)
+   ============================================================ */
+
+/* Accordion icon wrappers */
+.accordion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(0, 229, 160, 0.12);
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+/* Delivery option icons */
+.delivery-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(0, 229, 160, 0.08);
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+/* Payment card icons in checkout */
+.payment-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(0, 229, 160, 0.1);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+}
+
+/* Payment option cards - fix layout for SVG icons */
+.payment-opt-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Mobile bottom nav SVG icon sizing */
+.mobile-bottom-nav-item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Trust bar icons */
+.trust-icon svg {
+  display: block;
+}
+
+/* Delivery opt card flex alignment for SVG */
+.delivery-opt-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }

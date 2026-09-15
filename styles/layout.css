@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    OBSIDIAN LAYOUT STYLES
    Top Bar, Header, Navigation, Mega-Menu, Sections, Footer
    ========================================================================== */
@@ -1181,4 +1181,57 @@
 .mojak-attribution {
   color: var(--accent-primary);
   font-weight: 600;
+}
+
+
+/* ============================================================
+   PROFESSIONAL REFINEMENTS — Polish Pass
+   ============================================================ */
+
+/* Admin alert card improvement */
+.admin-metric-card.alert {
+  border-color: rgba(255, 68, 68, 0.35);
+}
+
+/* Flash deals banner badge no emoji */
+.flash-deals-banner .badge-gold {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+}
+
+/* Payment chips in footer - cleaner look */
+.payment-chip {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Delivery opt card flex alignment */
+.delivery-opt-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 10px;
+}
+
+.delivery-opt-card.selected {
+  border-color: var(--accent-primary);
+  background: rgba(0, 229, 160, 0.05);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.delivery-opt-card:hover {
+  border-color: var(--accent-primary);
+}
+
+/* Polished section label spacing */
+.section-label {
+  display: block;
+  margin-bottom: 10px;
 }

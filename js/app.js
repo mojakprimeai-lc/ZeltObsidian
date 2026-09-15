@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    ZELT SOLAR & ELECTRICALS — OBSIDIAN APP CONTROLLER
    Router, UI Interactions, Event Listeners, State Wiring
    ========================================================================== */
@@ -500,7 +500,7 @@ class ZeltApp {
         <div class="pdp-info-col">
           <div class="pdp-breadcrumb">Home › ${p.category} › ${p.subCategory}</div>
           <div class="badge badge-stock" style="width: fit-content; margin-bottom: 8px;">
-            🟢 In Stock — ${p.stockQty} Units Available
+            <span class="status-dot open" style="width:8px;height:8px;"></span> In Stock — ${p.stockQty} Units Available
           </div>
 
           <h2 class="pdp-title">${p.name}</h2>
@@ -552,13 +552,13 @@ class ZeltApp {
           <!-- Delivery and Trust -->
           <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; font-size: 13px;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--text-primary);">
-              <span>🚚</span> <strong>Nairobi Delivery:</strong> Same/Next-Day Bodaboda (KSh 300)
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> <strong>Nairobi Delivery:</strong> Same/Next-Day Bodaboda (KSh 300)
             </div>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--text-primary);">
-              <span>📦</span> <strong>Upcountry Kenya:</strong> 2–3 Days via Wells Fargo Couriers (KSh 600)
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> <strong>Upcountry Kenya:</strong> 2–3 Days via Wells Fargo Couriers (KSh 600)
             </div>
             <div style="display: flex; align-items: center; gap: 8px; color: var(--accent-primary);">
-              <span>📍</span> <strong>Shop Pickup:</strong> Free at Mwangaza Arcade Shop G7 or JBC Mall
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <strong>Shop Pickup:</strong> Free at Mwangaza Arcade Shop G7 or JBC Mall
             </div>
           </div>
         </div>
@@ -851,7 +851,7 @@ class ZeltApp {
     document.getElementById('confirmTotal').textContent = `KSh ${order.total.toLocaleString()}`;
     
     // Simulate SMS toast
-    this.showToast(`📲 SMS Sent to ${order.phone} via Africa's Talking: "Zelt Order #${order.id} Confirmed!"`);
+    this.showToast(`SMS Sent to ${order.phone} via Africa's Talking: "Zelt Order #${order.id} Confirmed!"`);
     confirmModal.classList.add('active');
   }
 
@@ -947,7 +947,7 @@ class ZeltApp {
       <div class="admin-header-row">
         <div>
           <span class="section-label">ZELT INTERNAL OPERATIONS PORTAL</span>
-          <h2 style="font-size: 30px;">Good morning, Fatuma 👋</h2>
+          <h2 style="font-size: 30px;">Good morning, Fatuma</h2>
           <p style="color: var(--text-secondary); font-size: 13px;">Counter & Dispatch Manager · Mwangaza Arcade Shop G7</p>
         </div>
         <div class="badge badge-stock" style="font-size: 12px;">
@@ -970,7 +970,7 @@ class ZeltApp {
         </div>
 
         <div class="admin-metric-card alert">
-          <div style="color: var(--accent-danger); font-size: 12px; text-transform: uppercase;">⚠️ Low Stock Inventory Alert</div>
+          <div style="color: var(--accent-danger); font-size: 12px; text-transform: uppercase;">Low Stock Inventory Alert</div>
           <div class="admin-metric-val">${metrics.lowStockProducts.length} Items Below Threshold</div>
           <div style="color: var(--accent-danger); font-size: 12px; margin-top: 4px;">
             ${metrics.lowStockProducts.map(p => `${p.name.slice(0, 20)}: ${p.stockQty} left`).join(' · ')}
@@ -1037,7 +1037,7 @@ class ZeltApp {
         if (newStatus === 'Delivered') newStage = 5;
 
         adminPortal.updateOrderStatus(orderId, newStatus, newStage, ({ phone, message }) => {
-          this.showToast(`📲 SMS Sent to ${phone} via Africa's Talking: "${message}"`);
+          this.showToast(`SMS Sent to ${phone} via Africa's Talking: "${message}"`);
         });
         this.renderAdminView();
       });
@@ -1198,7 +1198,7 @@ class ZeltApp {
     const toast = document.createElement('div');
     toast.className = `toast ${type === 'danger' ? 'toast-danger' : ''}`;
     toast.innerHTML = `
-      <span>${type === 'danger' ? '⚠️' : '⚡'}</span>
+      <span>${type === 'danger' ? '!' : '✓'}</span>
       <span>${message}</span>
     `;
 
