@@ -1235,3 +1235,32 @@
   display: block;
   margin-bottom: 10px;
 }
+
+/* ── Tracking Search Bar ── */
+.tracking-search-bar {
+  display: flex;
+  gap: 10px;
+  max-width: 480px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.tracking-search-bar input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.tracking-search-bar .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Section Title responsive clamp ── */
+.section-title {
+  font-size: clamp(22px, 4vw, 38px);
+}
+
+/* ── Tracking view container ── */
+.tracking-view-container {
+  padding: 48px 0 100px;
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Zelt Solar & Electricals | Nairobi's Solar & Electrical Specialists</title>
   <meta name="description" content="Power Your World. Light Your Space. Premium solar energy systems, hybrid inverters, lithium batteries, and modern lighting delivered nationwide across Kenya.">
   
@@ -181,7 +181,7 @@
         <div class="search-wrapper">
           <div class="search-input-box">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="siteSearchInput" placeholder="Search solar panels, inverters..." autocomplete="off">
+            <input type="text" id="siteSearchInput" inputmode="search" autocorrect="off" autocapitalize="none" placeholder="Search solar panels, inverters..." autocomplete="off">
           </div>
           <div class="search-dropdown" id="searchDropdown"></div>
         </div>
@@ -587,7 +587,7 @@
                 <p style="color: var(--text-secondary); font-size: 14px;">Receive exclusive flash sales and new arrival alerts in your inbox.</p>
               </div>
               <form class="newsletter-form" onsubmit="event.preventDefault(); window.zeltApp.showToast('Thank you for subscribing to Zelt alerts!');">
-                <input type="email" placeholder="Enter your email address..." required>
+                <input type="email" placeholder="Enter your email address..." autocomplete="email" inputmode="email" required>
                 <button type="submit" class="btn btn-primary" style="padding: 0 20px;">Subscribe</button>
               </form>
             </div>
@@ -730,13 +730,13 @@
       <div class="container tracking-view-container">
         <div style="text-align: center; margin-bottom: 36px;">
           <span class="section-label">REAL-TIME SHIPMENT STATUS</span>
-          <h2 style="font-size: 36px; margin-bottom: 12px;">Track Your Zelt Order</h2>
+          <h2 class="section-title" style="margin-bottom: 12px;">Track Your Zelt Order</h2>
           <p style="color: var(--text-secondary); max-width: 550px; margin: 0 auto 24px;">
             Enter your Zelt Order Number (e.g., <strong>ZLT-2024-8847</strong>) or telephone number to view the live 5-stage fulfillment status and Wells Fargo waybill.
           </p>
 
-          <div style="display: flex; gap: 10px; max-width: 480px; margin: 0 auto;">
-            <input type="text" id="trackOrderInput" placeholder="Enter Order # e.g. ZLT-2024-8847" value="ZLT-2024-8847" style="flex-grow: 1; padding: 12px 18px; font-size: 14px;">
+          <div class="tracking-search-bar">
+            <input type="text" id="trackOrderInput" inputmode="text" autocomplete="off" placeholder="Enter Order # e.g. ZLT-2024-8847" value="ZLT-2024-8847" style="flex-grow: 1; padding: 12px 18px; font-size: 14px;">
             <button class="btn btn-primary" id="lookupOrderBtn">Track Order</button>
           </div>
         </div>
@@ -779,7 +779,7 @@
 
     <div class="cart-drawer-footer">
       <div class="discount-form-row">
-        <input type="text" id="discountInput" placeholder="Discount Code (e.g. ZELT10)">
+        <input type="text" id="discountInput" autocomplete="off" autocapitalize="characters" placeholder="Discount Code (e.g. ZELT10)">
         <button class="btn btn-secondary" id="applyDiscountBtn" style="font-size: 12px; padding: 0 14px;">Apply</button>
       </div>
 
@@ -824,7 +824,7 @@
        6. SOLAR SIZING CALCULATOR FULL WIZARD MODAL
        ======================================================================== -->
   <div class="modal-backdrop" id="calculatorModal">
-    <div class="calc-wizard-card" style="width: 820px; position: relative;">
+    <div class="calc-wizard-card" style="position: relative;">
       <button class="modal-close-btn" id="closeCalcBtn">✕</button>
 
       <div style="text-align: center; margin-bottom: 28px;">
@@ -985,11 +985,11 @@
         <div class="checkout-form-grid">
           <div class="checkout-field full">
             <label>Email Address for Order Invoice:</label>
-            <input type="email" id="coEmail" placeholder="e.g. j.wanjiku@gmail.com" value="jane.wanjiku@gmail.com">
+            <input type="email" id="coEmail" autocomplete="email" inputmode="email" placeholder="e.g. j.wanjiku@gmail.com" value="jane.wanjiku@gmail.com">
           </div>
           <div class="checkout-field full">
             <label>Kenyan Mobile Phone Number (For M-Pesa STK Push & SMS updates):</label>
-            <input type="tel" id="coPhone" placeholder="+254 7XX XXX XXX" value="+254 712 998 441">
+            <input type="tel" id="coPhone" autocomplete="tel" inputmode="tel" placeholder="+254 7XX XXX XXX" value="+254 712 998 441">
           </div>
         </div>
         <button class="btn btn-primary" id="toDeliveryBtn" style="width: 100%;">
@@ -1002,23 +1002,23 @@
         <div class="checkout-form-grid">
           <div class="checkout-field">
             <label>First Name:</label>
-            <input type="text" id="coFirstName" value="Jane">
+            <input type="text" id="coFirstName" autocomplete="given-name" value="Jane">
           </div>
           <div class="checkout-field">
             <label>Last Name:</label>
-            <input type="text" id="coLastName" value="Wanjiku">
+            <input type="text" id="coLastName" autocomplete="family-name" value="Wanjiku">
           </div>
           <div class="checkout-field full">
             <label>Street Address / Estate / Landmark:</label>
-            <input type="text" id="coAddress" value="Muthithi Road, Westlands">
+            <input type="text" id="coAddress" autocomplete="street-address" value="Muthithi Road, Westlands">
           </div>
           <div class="checkout-field">
             <label>Town / City:</label>
-            <input type="text" id="coCity" value="Nairobi">
+            <input type="text" id="coCity" autocomplete="address-level2" value="Nairobi">
           </div>
           <div class="checkout-field">
             <label>County:</label>
-            <input type="text" id="coCounty" value="Nairobi">
+            <input type="text" id="coCounty" autocomplete="address-level1" value="Nairobi">
           </div>
         </div>
 
@@ -1193,7 +1193,7 @@
     </div>
 
     <div class="chat-input-row">
-      <input type="text" id="chatInput" placeholder="Ask about sizing, batteries, floodlights...">
+      <input type="text" id="chatInput" autocomplete="off" autocorrect="off" placeholder="Ask about sizing, batteries, floodlights...">
       <button class="btn btn-primary" id="sendChatBtn" style="padding: 0 14px; font-size: 13px;">Send</button>
     </div>
   </div>

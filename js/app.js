@@ -890,7 +890,7 @@ class ZeltApp {
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;">
           <div>
             <div style="color: var(--text-muted);">Destination Address:</div>
             <strong style="color: var(--text-primary);">${order.address}</strong>
@@ -1187,8 +1187,25 @@ class ZeltApp {
     const mobDrawer = document.getElementById('mobileNavDrawer');
     const closeMob = document.getElementById('closeMobileNavBtn');
 
-    mobBtn?.addEventListener('click', () => mobDrawer?.classList.add('active'));
-    closeMob?.addEventListener('click', () => mobDrawer?.classList.remove('active'));
+    const mobBackdrop = document.createElement('div');
+    mobBackdrop.id = 'mobileNavBackdrop';
+    mobBackdrop.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:498;-webkit-tap-highlight-color:transparent;';
+    document.body.appendChild(mobBackdrop);
+
+    const openMobileNav = () => {
+      mobDrawer?.classList.add('active');
+      mobBackdrop.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    };
+    const closeMobileNav = () => {
+      mobDrawer?.classList.remove('active');
+      mobBackdrop.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    mobBtn?.addEventListener('click', openMobileNav);
+    closeMob?.addEventListener('click', closeMobileNav);
+    mobBackdrop.addEventListener('click', closeMobileNav);
   }
 
   showToast(message, type = 'info') {

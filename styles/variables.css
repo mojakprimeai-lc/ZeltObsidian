@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    OBSIDIAN DESIGN SYSTEM — ZELT SOLAR & ELECTRICALS
    Theme: Power, Precision, Premium
    Powered by MOJAK PRIME AI LIMITED
@@ -143,8 +143,8 @@ img {
   max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: clamp(14px, 4vw, 24px);
+  padding-right: clamp(14px, 4vw, 24px);
 }
 
 .mono {
@@ -168,7 +168,7 @@ img {
 }
 
 .section-title {
-  font-size: 36px;
+  font-size: clamp(22px, 5vw, 36px);
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 16px;

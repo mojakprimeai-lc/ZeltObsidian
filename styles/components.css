@@ -1309,3 +1309,123 @@
   align-items: center;
   gap: 14px;
 }
+
+/* ============================================================
+   ADDITIONAL MOBILE-FIRST COMPONENT FIXES
+   ============================================================ */
+
+/* Admin header row responsive */
+.admin-header-row {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Admin table wrapper for horizontal scroll */
+.admin-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+}
+
+/* Ensure admin table uses wrapper */
+.admin-table {
+  min-width: 640px;
+}
+
+/* Checkout container max-width and full mobile */
+.checkout-container {
+  max-width: min(850px, 100%);
+}
+
+/* Calculator wizard max-width */
+.calc-wizard-card {
+  max-width: min(820px, 100%);
+}
+
+/* Prevent modal overflow on mobile */
+.modal-backdrop {
+  padding: clamp(12px, 3vw, 24px);
+}
+
+/* WhatsApp CTA button on mobile */
+.whatsapp-cta-content .btn {
+  flex-shrink: 0;
+}
+
+/* Cart drawer - ensure it never overflows on any device */
+.cart-drawer {
+  max-width: 440px;
+}
+
+/* Variant chips wrap on mobile */
+.variant-chips {
+  flex-wrap: wrap;
+}
+
+/* PDP info col ensures flex flow */
+.pdp-info-col {
+  min-width: 0;
+}
+
+/* Specs table responsive */
+.specs-table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tracking search input group */
+#trackingView > .tracking-view-container > div:first-child > div[style] {
+  flex-wrap: wrap;
+}
+
+/* Close button min size for touch */
+.close-drawer-btn,
+.modal-close-btn {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+/* Smooth scrolling for tab bars */
+.pdp-tabs-nav,
+.filter-tabs {
+  scroll-padding-left: 16px;
+  overscroll-behavior-x: contain;
+}
+
+/* Section label on mobile */
+@media (max-width: 768px) {
+  .section-label {
+    font-size: 11px;
+  }
+
+  .accordion-item {
+    padding: 16px 0;
+  }
+
+  .admin-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-dashboard {
+    padding: 24px 0 80px;
+  }
+
+  /* Tracking search bar stack */
+  .tracking-view-container > div:first-child > div[style*="flex"] {
+    flex-direction: column;
+  }
+
+  .tracking-view-container > div:first-child > div[style*="flex"] input {
+    width: 100%;
+  }
+
+  .tracking-view-container > div:first-child > div[style*="flex"] button {
+    width: 100%;
+  }
+}
