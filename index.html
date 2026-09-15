@@ -187,7 +187,7 @@
         </div>
 
         <!-- Order Tracking Quick Link -->
-        <button class="action-btn" title="Track Your Order" data-nav="tracking">
+        <button class="action-btn header-track-btn" title="Track Your Order" data-nav="tracking">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
         </button>
 
@@ -199,7 +199,7 @@
         </button>
 
         <!-- Counter Admin Quick Access -->
-        <button class="action-btn" title="Internal Operations" data-nav="admin">
+        <button class="action-btn header-admin-btn" title="Internal Operations" data-nav="admin">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </button>
 
@@ -639,6 +639,10 @@
         <div class="catalog-layout-grid">
           <!-- Sidebar Filters -->
           <aside class="catalog-sidebar-filters">
+            <div class="mobile-filter-header">
+              <span style="font-weight: 700; font-size: 15px; color: var(--text-primary);">Filter Equipment</span>
+              <button class="close-drawer-btn" onclick="document.querySelector('.catalog-sidebar-filters').classList.remove('mobile-active');" title="Close Filters">✕</button>
+            </div>
             <div class="filter-group">
               <div class="filter-group-title">
                 <span>Categories</span>
@@ -882,7 +886,7 @@
         </div>
 
         <!-- Step 3: Goal & Location -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px;">
+        <div class="calc-goal-location-grid">
           <div>
             <label style="font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 8px; display: block;">Your Energy Objective:</label>
             <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
@@ -907,7 +911,7 @@
             <span class="badge badge-mint">Engineered Sizing</span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px;">
+          <div class="calc-results-stats-grid">
             <div class="calc-stat-box">
               <div class="calc-stat-val" id="calcOutSolarKw">3.3 kW</div>
               <div class="calc-stat-lbl">Solar Array</div>
@@ -940,8 +944,7 @@
             </div>
           </div>
 
-          <div style="display: flex; gap: 12px;">
-            <button type="button" class="btn btn-primary" id="calcShopMatchingBtn" style="flex-grow: 1;">
+          <div class="calc-results-actions"><button type="button" class="btn btn-primary" id="calcShopMatchingBtn" style="flex-grow: 1;">
               Shop Matching Components in Catalog →
             </button>
             <a href="https://wa.me/254701884358?text=Hi%20Zelt%20Solar,%20I%20ran%20your%20calculator%20for%20my%20bill.%20Can%20you%20confirm%20inverter%20and%20battery%20stock?" target="_blank" class="btn btn-secondary" style="color: #25D366; border-color: #25D366;">
@@ -1125,7 +1128,7 @@
 
   <!-- ORDER CONFIRMATION MODAL -->
   <div class="modal-backdrop" id="orderConfirmModal">
-    <div style="background: var(--bg-secondary); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); padding: 40px; text-align: center; max-width: 600px;">
+    <div class="order-confirm-card">
       <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(0, 229, 160, 0.15); color: var(--accent-primary); font-size: 36px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
@@ -1142,7 +1145,7 @@
         <div style="margin-top: 6px;"><strong>Amount Settled:</strong> <span class="mono font-bold text-mint" id="confirmTotal">KSh 0</span></div>
       </div>
 
-      <div style="display: flex; gap: 12px; justify-content: center;">
+      <div class="order-confirm-actions">
         <button class="btn btn-primary" onclick="document.getElementById('orderConfirmModal').classList.remove('active'); window.zeltApp.switchView('tracking');">
           Track My Shipment →
         </button>
@@ -1207,14 +1210,74 @@
       <div class="logo-main" style="font-size: 20px;">
         ZELT <span class="logo-dot"></span>
       </div>
-      <button class="close-drawer-btn" id="closeMobileNavBtn">✕</button>
+      <button class="close-drawer-btn" id="closeMobileNavBtn" aria-label="Close menu">✕</button>
     </div>
+
+    <!-- Quick Search inside Mobile Drawer -->
+    <div class="mobile-drawer-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="mobileDrawerSearch" placeholder="Search panels, inverters, lights..." autocomplete="off">
+    </div>
+
     <div class="mobile-nav-links">
-      <a href="#home" class="mobile-nav-item active" data-nav="home" onclick="document.getElementById('mobileNavDrawer').classList.remove('active');">Home</a>
-      <a href="#catalog" class="mobile-nav-item" data-nav="catalog" onclick="document.getElementById('mobileNavDrawer').classList.remove('active');">All Products</a>
-      <a href="#calculator" class="mobile-nav-item text-mint" data-open-calculator onclick="document.getElementById('mobileNavDrawer').classList.remove('active');">Solar Calculator</a>
-      <a href="#tracking" class="mobile-nav-item" data-nav="tracking" onclick="document.getElementById('mobileNavDrawer').classList.remove('active');">Order Tracking</a>
-      <a href="#admin" class="mobile-nav-item" data-nav="admin" onclick="document.getElementById('mobileNavDrawer').classList.remove('active');">Internal Operations</a>
+      <div class="mobile-nav-group-label">Navigation</div>
+      <a href="#home" class="mobile-nav-item active" data-nav="home">
+        <span>Home</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="#catalog" class="mobile-nav-item" data-nav="catalog">
+        <span>Shop All Products</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="#calculator" class="mobile-nav-item text-mint" data-open-calculator>
+        <span>Solar Sizing Calculator</span>
+        <span class="badge badge-mint" style="font-size: 10px;">Engineered</span>
+      </a>
+      <a href="#tracking" class="mobile-nav-item" data-nav="tracking">
+        <span>Order Tracking Portal</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="#admin" class="mobile-nav-item" data-nav="admin">
+        <span>Internal Operations</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <div class="mobile-nav-group-label" style="margin-top: 12px;">Browse Categories</div>
+      <a href="#catalog" class="mobile-nav-sub-item" onclick="window.zeltApp.openCatalogView('solar-energy');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        <span>Solar Energy Systems</span>
+      </a>
+      <a href="#catalog" class="mobile-nav-sub-item" onclick="window.zeltApp.openCatalogView('solar-outdoor');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21h6M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/></svg>
+        <span>Solar Outdoor Lighting</span>
+      </a>
+      <a href="#catalog" class="mobile-nav-sub-item" onclick="window.zeltApp.openCatalogView('solar-specialty');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Specialty Solar & Pumps</span>
+      </a>
+      <a href="#catalog" class="mobile-nav-sub-item" onclick="window.zeltApp.openCatalogView('indoor-decorative');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v8M4.93 10.93l1.41 1.41M2 18h20M7 18a5 5 0 0 0 10 0"/></svg>
+        <span>Indoor & Decorative</span>
+      </a>
+      <a href="#catalog" class="mobile-nav-sub-item" onclick="window.zeltApp.openCatalogView('electrical-infrastructure');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="8" cy="18" r="2"/><path d="M10 6h10M2 6h4M18 12H2M10 18h10"/></svg>
+        <span>Electrical Infrastructure</span>
+      </a>
+    </div>
+
+    <!-- Contact & Showrooms in Drawer Footer -->
+    <div class="mobile-nav-contact">
+      <a href="https://wa.me/254701884358?text=Hi%20Zelt%20Solar,%20I%20need%20assistance" target="_blank" class="mobile-contact-whatsapp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+        <span>Chat with Solar Specialist</span>
+      </a>
+      <a href="tel:+254701884358" class="mobile-contact-call">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Call: +254 701 884 358</span>
+      </a>
+      <div class="mobile-nav-showroom-note">
+        Shop G7, Mwangaza Arcade, Nairobi CBD
+      </div>
     </div>
   </div>
 

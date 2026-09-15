@@ -879,7 +879,7 @@ class ZeltApp {
 
     container.innerHTML = `
       <div class="tracking-header-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-default); padding-bottom: 16px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--border-default); padding-bottom: 16px; margin-bottom: 16px;">
           <div>
             <span class="section-label">LIVE ORDER DISPATCH TELEMETRY</span>
             <h3 style="font-size: 22px;">Order #${order.id}</h3>
@@ -981,7 +981,7 @@ class ZeltApp {
       <!-- Orders Table -->
       <div style="margin-bottom: 30px;">
         <h3 style="font-size: 18px; margin-bottom: 16px;">Live Customer Orders</h3>
-        <table class="admin-table">
+        <div class="admin-table-wrap"><table class="admin-table">
           <thead>
             <tr>
               <th>Order ID</th>
@@ -1110,6 +1110,8 @@ class ZeltApp {
   // 16. Catalog View Filtering
   openCatalogView(categoryId = 'all') {
     this.activeFilterCategory = categoryId;
+    this.closeMobileNav();
+    document.querySelector('.catalog-sidebar-filters')?.classList.remove('mobile-active');
     this.switchView('catalog');
     this.renderCatalogView();
   }
@@ -1134,6 +1136,22 @@ class ZeltApp {
     this.bindProductCardEvents(grid);
   }
 
+  openMobileNav() {
+    const mobDrawer = document.getElementById('mobileNavDrawer');
+    const mobBackdrop = document.getElementById('mobileNavBackdrop');
+    mobDrawer?.classList.add('active');
+    if (mobBackdrop) mobBackdrop.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeMobileNav() {
+    const mobDrawer = document.getElementById('mobileNavDrawer');
+    const mobBackdrop = document.getElementById('mobileNavBackdrop');
+    mobDrawer?.classList.remove('active');
+    if (mobBackdrop) mobBackdrop.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
   switchView(viewName) {
     this.currentView = viewName;
     const views = ['homeView', 'catalogView', 'trackingView', 'adminView'];
@@ -1142,10 +1160,17 @@ class ZeltApp {
       if (el) el.style.display = (v === `${viewName}View`) ? 'block' : 'none';
     });
 
-    // Update active nav links
+    // Update active nav links across desktop, mobile drawer, and bottom nav
     document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
-    document.querySelector(`[data-nav="${viewName}"]`)?.classList.add('active');
+    document.querySelectorAll(`.nav-link[data-nav="${viewName}"]`).forEach(nl => nl.classList.add('active'));
 
+    document.querySelectorAll('.mobile-bottom-nav-item').forEach(bi => bi.classList.remove('active'));
+    document.querySelectorAll(`.mobile-bottom-nav-item[data-nav="${viewName}"]`).forEach(bi => bi.classList.add('active'));
+
+    document.querySelectorAll('.mobile-nav-item').forEach(mi => mi.classList.remove('active'));
+    document.querySelectorAll(`.mobile-nav-item[data-nav="${viewName}"]`).forEach(mi => mi.classList.add('active'));
+
+    this.closeMobileNav();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1182,30 +1207,69 @@ class ZeltApp {
       if (e.target.id === 'checkoutModal') document.getElementById('checkoutModal').classList.remove('active');
     });
 
-    // Mobile menu toggle
+    // Mobile menu toggle & drawer
     const mobBtn = document.getElementById('mobileMenuBtn');
-    const mobDrawer = document.getElementById('mobileNavDrawer');
     const closeMob = document.getElementById('closeMobileNavBtn');
 
-    const mobBackdrop = document.createElement('div');
-    mobBackdrop.id = 'mobileNavBackdrop';
-    mobBackdrop.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:498;-webkit-tap-highlight-color:transparent;';
-    document.body.appendChild(mobBackdrop);
+    let mobBackdrop = document.getElementById('mobileNavBackdrop');
+    if (!mobBackdrop) {
+      mobBackdrop = document.createElement('div');
+      mobBackdrop.id = 'mobileNavBackdrop';
+      mobBackdrop.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:498;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(4px);';
+      document.body.appendChild(mobBackdrop);
+    }
 
-    const openMobileNav = () => {
-      mobDrawer?.classList.add('active');
-      mobBackdrop.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    };
-    const closeMobileNav = () => {
-      mobDrawer?.classList.remove('active');
-      mobBackdrop.style.display = 'none';
-      document.body.style.overflow = '';
-    };
+    mobBtn?.addEventListener('click', () => this.openMobileNav());
+    closeMob?.addEventListener('click', () => this.closeMobileNav());
+    mobBackdrop.addEventListener('click', () => this.closeMobileNav());
 
-    mobBtn?.addEventListener('click', openMobileNav);
-    closeMob?.addEventListener('click', closeMobileNav);
-    mobBackdrop.addEventListener('click', closeMobileNav);
+    // Close mobile drawer when clicking category or nav links inside it
+    document.querySelectorAll('#mobileNavDrawer a').forEach(a => {
+      a.addEventListener('click', () => this.closeMobileNav());
+    });
+
+    // Mobile Drawer Instant Search
+    const drawerSearch = document.getElementById('mobileDrawerSearch');
+    drawerSearch?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const q = drawerSearch.value.trim().toLowerCase();
+        if (q) {
+          this.closeMobileNav();
+          this.openCatalogView('all');
+          const grid = document.getElementById('catalogProductsGrid');
+          if (grid) {
+            const matches = PRODUCTS.filter(p =>
+              p.name.toLowerCase().includes(q) ||
+              p.category.toLowerCase().includes(q) ||
+              p.brand.toLowerCase().includes(q)
+            );
+            if (matches.length > 0) {
+              grid.innerHTML = matches.map(p => this.createProductCardHtml(p)).join('');
+              this.bindProductCardEvents(grid);
+              const countEl = document.getElementById('catalogItemCount');
+              if (countEl) countEl.textContent = `${matches.length} Products Matching "${q}"`;
+            } else {
+              grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--text-muted);">No products found matching "${q}".</div>`;
+            }
+          }
+        }
+      }
+    });
+
+    // Global ESC key listener to dismiss all open modals & drawers
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.closeMobileNav();
+        this.closeCalculatorModal();
+        document.getElementById('pdpModalBackdrop')?.classList.remove('active');
+        document.getElementById('checkoutModal')?.classList.remove('active');
+        document.getElementById('orderConfirmModal')?.classList.remove('active');
+        document.getElementById('cartDrawer')?.classList.remove('active');
+        document.getElementById('cartDrawerBackdrop')?.classList.remove('active');
+        document.querySelector('.catalog-sidebar-filters')?.classList.remove('mobile-active');
+        document.getElementById('chatWindow')?.classList.remove('active');
+      }
+    });
   }
 
   showToast(message, type = 'info') {
